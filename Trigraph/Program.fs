@@ -16,17 +16,17 @@ let padWord (text : string) =
 let words (text : string) =
   text.Trim(' ').Split([|' '|], StringSplitOptions.RemoveEmptyEntries)
 
-let trigraphsOfWord (word : string) = [|
+let trigramsOfWord (word : string) = [|
   for i in 0..word.Length-3 do
     yield word.[i..i+2]
 |]
 
-let trigraphsOfText text = 
+let trigramsOfText text = 
   text
   |> stripCharacters
   |> words
   |> Array.map padWord
-  |> Array.map trigraphsOfWord
+  |> Array.map trigramsOfWord
   |> Array.concat
   |> Array.distinct
   |> Set.ofArray
@@ -37,28 +37,30 @@ let similarityOfSets (set1 : Set<string>) (set2: Set<string>) : float =
   (float intersection.Count) / (float (Set.union larger smaller).Count)
 
 let similarity text1 text2 =
-  let trigraph1 = trigraphsOfText text1
-  let trigraph2 = trigraphsOfText text2
+  let trigraph1 = trigramsOfText text1
+  let trigraph2 = trigramsOfText text2
   similarityOfSets trigraph1 trigraph2
 
 stripCharacters "hase-und & auto"
 
-trigraphsOfText "ab"
-trigraphsOfText "cat"
-trigraphsOfText "cat & test"
-trigraphsOfText "foo|bar"
+trigramsOfText "ab"
+trigramsOfText "cat"
+trigramsOfText "cat & test"
+trigramsOfText "foo|bar"
 
-trigraphsOfText "a"
-trigraphsOfText "ab"
+trigramsOfText "a"
+trigramsOfText "ab"
 
 similarity "a" "ab"
 
 similarity "cat" "bat"
+similarity "fat" "zat"
+
 similarity "0123" "01234"
+similarity "0123" "10123"
+similarity "0123" "0123"
 
 [<EntryPoint>]
 let main argv =
-    printf "Trigraph"
-    
-    // "01234567890" |> createTrigraphs |> Seq.iter (fun t -> printf "%s" t)
+    printf "Trigram"
     0
