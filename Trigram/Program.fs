@@ -62,5 +62,12 @@ similarity "0123" "0123"
 
 [<EntryPoint>]
 let main argv =
-    printf "Trigram"
-    0
+  if argv.Length >= 2 then
+    let s1 = argv.[argv.Length-2]
+    let s2 = argv.[argv.Length-1]
+    printfn "Trigram"
+    printfn "input: %s, %s" s1 s2
+    printfn "similarity: %f" (similarity s1 s2)
+  else
+    printfn "example usage: trigram.exe \"this is the first text\" \"this is the second text\""
+  0

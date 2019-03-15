@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Trigram": {
+      "commandName": "Project",
+      "commandLineArgs": "\"this is the first text\" \"this is the second text\""
+    }
+  }
+}
