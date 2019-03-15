@@ -31,15 +31,15 @@ let trigraphsOfText text =
   |> Array.distinct
   |> Set.ofArray
 
-let similiarityOfSets (set1 : Set<string>) (set2: Set<string>) : float =
+let similarityOfSets (set1 : Set<string>) (set2: Set<string>) : float =
   let smaller, larger = if set1.Count < set2.Count then set1, set2 else set2, set1
   let intersection = Set.intersect larger smaller
   (float intersection.Count) / (float (Set.union larger smaller).Count)
 
-let similiarity text1 text2 =
+let similarity text1 text2 =
   let trigraph1 = trigraphsOfText text1
   let trigraph2 = trigraphsOfText text2
-  similiarityOfSets trigraph1 trigraph2
+  similarityOfSets trigraph1 trigraph2
 
 stripCharacters "hase-und & auto"
 
@@ -51,12 +51,10 @@ trigraphsOfText "foo|bar"
 trigraphsOfText "a"
 trigraphsOfText "ab"
 
-similiarity "a" "ab"
+similarity "a" "ab"
 
-similiarity "cat" "bat"
-similiarity "0123" "01234"
-
-
+similarity "cat" "bat"
+similarity "0123" "01234"
 
 [<EntryPoint>]
 let main argv =
