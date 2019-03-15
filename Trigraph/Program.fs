@@ -1,7 +1,7 @@
 ﻿open System
 
 let stripCharacters (text : string) =
-  let separators = Set.ofList [' '; '_'; '-' ]
+  let separators = Set.ofList [' '; '_'; '-'; '|' ]
   let isSeparator = separators.Contains
   text
   |> String.filter (fun c -> Char.IsLetterOrDigit(c) || isSeparator(c))
@@ -9,8 +9,6 @@ let stripCharacters (text : string) =
                 | c when Char.IsLetterOrDigit(c) -> c
                 | _ -> ' ')
   |> string
-  
-stripCharacters "hase-und & auto"
 
 let padWord (text : string) =
   sprintf "  %s " (text.Trim(' '))
@@ -35,22 +33,29 @@ let trigraphsOfText text =
 
 let similiarityOfSets (set1 : Set<string>) (set2: Set<string>) : float =
   let smaller, larger = if set1.Count < set2.Count then set1, set2 else set2, set1
-  (float (Set.intersect larger smaller).Count) / (float larger.Count)
+  let intersection = Set.intersect larger smaller
+  (float intersection.Count) / (float (Set.union larger smaller).Count)
 
 let similiarity text1 text2 =
   let trigraph1 = trigraphsOfText text1
   let trigraph2 = trigraphsOfText text2
   similiarityOfSets trigraph1 trigraph2
 
+stripCharacters "hase-und & auto"
+
 trigraphsOfText "ab"
 trigraphsOfText "cat"
 trigraphsOfText "cat & test"
+trigraphsOfText "foo|bar"
 
 trigraphsOfText "a"
 trigraphsOfText "ab"
 
 similiarity "a" "ab"
+
 similiarity "cat" "bat"
+similiarity "0123" "01234"
+
 
 
 [<EntryPoint>]
