@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Trigraph", "Trigraph\Trigraph.fsproj", "{C49DB484-851C-413F-AB1A-0DE84EC37721}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Trigram", "Trigram\Trigram.fsproj", "{C49DB484-851C-413F-AB1A-0DE84EC37721}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
