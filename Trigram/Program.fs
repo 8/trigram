@@ -6,7 +6,7 @@ let stripCharacters (text : string) =
   text
   |> String.filter (fun c -> Char.IsLetterOrDigit(c) || isSeparator(c))
   |> String.map (function
-                | c when Char.IsLetterOrDigit(c) -> c
+                | c when Char.IsLetterOrDigit(c) -> Char.ToLowerInvariant(c)
                 | _ -> ' ')
   |> string
 
@@ -53,7 +53,7 @@ trigramsOfText "ab"
 
 similarity "a" "ab"
 
-similarity "cat" "bat"
+similarity "Das ist ein Text" "Das ist kein text"
 similarity "fat" "zat"
 
 similarity "0123" "01234"
